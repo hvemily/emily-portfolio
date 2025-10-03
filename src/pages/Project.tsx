@@ -20,7 +20,7 @@ export default function Project() {
         <div className="mt-2 flex items-center gap-3 text-sm">
           <button className="btn" onClick={() => navigator.clipboard?.writeText(shareUrl)} aria-label="Copy article link" title="Copy link">Copy link</button>
           {item.live && <a className="btn" href={item.live} target="_blank" rel="noreferrer">Open live</a>}
-          {item.repo && <a className="btn" href={item.repo} target="_blank" rel="noreferrer">Open README</a>}
+          {item.repo && <a className="btn" href={item.repo} target="_blank" rel="noreferrer">Open repository</a>}
         </div>
       </header>
       <figure className="mb-6">

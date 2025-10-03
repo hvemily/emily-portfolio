@@ -20,7 +20,9 @@ export const projects: Project[] = [
     caption: 'Soci4l - a CSS frameworks project',
     live: 'https://main--soci4l.netlify.app/',
     repo: 'https://github.com/NoroffFEU/js2-ca-hvemily/tree/css-frameworks',
-    article: `This project explores using a CSS framework to build a responsive layout quickly...`,
+    article: `This project explores using a CSS framework to build a responsive layout quickly.
+    It was buildt using Tailwind as the CSS framwork. If you wish to register to view the page, 
+    just make up a e-mail account that ends with @stud.noroff.no`,
   },
   {
     slug: 'javascript-frameworks',

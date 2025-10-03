@@ -42,7 +42,7 @@ export default function Home() {
       {/* PROSJEKTER */}
       <section id="projects" className="container py-10">
         <header className="mb-8">
-          <h2 className="text-2xl font-semibold">Projects</h2>
+          <h2 className="text-2xl font-semibold text-orange-600">Projects</h2>
         </header>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
