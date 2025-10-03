@@ -5,7 +5,7 @@ type CardProps = { item: Project };
 
 export default function Card({ item }: CardProps) {
   return (
-    <article className="card overflow-hidden border border-black hover:border-orange-600">
+    <article className="card overflow-hidden border-2 border-gray-700 hover:border-orange-600">
       <Link to={`/projects/${item.slug}`}>
         <img
           src={item.thumbnail}
