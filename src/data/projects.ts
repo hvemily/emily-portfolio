@@ -13,7 +13,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'css-frameworks',
-    title: 'CSS Frameworks',
+    title: 'CSS Frameworks - SOCI4L',
     teaser: 'A responsive site built to compare and apply a CSS framework with solid layout.',
     thumbnail: '/images/soci4l_login.png',
     image: '/images/soci4l_login.png',
