@@ -145,17 +145,29 @@ export default function Project() {
           </div>
         </header>
 
-        {/* hero image */}
+                {/* hero image */}
         {item.image && (
           <figure className="mb-8">
             <div className="rounded-2xl p-[1px] bg-gradient-to-r from-orange-500/40 via-fuchsia-500/30 to-cyan-400/40">
               <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black">
-                <img
-                  src={item.image}
-                  alt={item.caption || item.title}
-                  className="w-full max-h-[480px] object-cover transition-transform duration-700 hover:scale-[1.02]"
-                  loading="eager"
-                />
+                {item.live ? (
+                  <a href={item.live} target="_blank" rel="noreferrer" title="Open live project">
+                    <img
+                      src={item.image}
+                      alt={item.caption || item.title}
+                      className="w-full max-h-[480px] object-cover transition-transform duration-700 hover:scale-[1.02] cursor-pointer"
+                      loading="eager"
+                    />
+                  </a>
+                ) : (
+                  <img
+                    src={item.image}
+                    alt={item.caption || item.title}
+                    className="w-full max-h-[480px] object-cover transition-transform duration-700 hover:scale-[1.02]"
+                    loading="eager"
+                  />
+                )}
+
                 {/* shine sweep */}
                 <span
                   className="pointer-events-none absolute inset-0 opacity-0 hover:opacity-100"
@@ -173,6 +185,7 @@ export default function Project() {
             )}
           </figure>
         )}
+
 
         {/* article body */}
         <section className="prose prose-invert max-w-none prose-a:text-orange-400">

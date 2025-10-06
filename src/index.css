@@ -7,27 +7,117 @@
 .btn { @apply inline-flex items-center justify-center rounded-xl px-4 py-2 font-medium border border-gray-300 hover:bg-gray-50; }
 .btn-primary { @apply bg-black text-white border-black hover:bg-gray-900; }
 
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(-0.2em); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in {
-  animation: fade-in 0.4s forwards;
+/* Sørg for svart bakgrunn uten å dekke stjernene */
+html, body { background: #000; }
+
+/* Gradient divider mellom seksjoner */
+.section-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg,
+    rgba(255,138,76,0.35) 0%,
+    rgba(217,70,239,0.30) 50%,
+    rgba(34,211,238,0.35) 100%);
+  margin: 2rem 0;
+  opacity: 0.8;
 }
 
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
-}
-.animate-blink {
-  animation: blink 1s step-start infinite;
+/* === STJERNENETT (full-bleed) === */
+.starry-bg {
+  position: fixed;     /* dekker hele viewporten */
+  inset: 0;
+  background: radial-gradient(ellipse at bottom, #0a0a0a 0%, #000 100%);
+  z-index: 0;          /* ikke negativ, ellers havner den under root */
+  overflow: hidden;
 }
 
-/* glitch farger */
-.text-shadow-red {
-  text-shadow: 2px 0 red;
+/* Flere lag for tetthet + bevegelse */
+.starry-bg::before,
+.starry-bg::after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  left: -25%;
+  width: 150%;
+  height: 150%;
+  background-repeat: repeat;
+  animation: moveStars 140s linear infinite;
+  filter: drop-shadow(0 0 1px #fff);
 }
-.text-shadow-blue {
-  text-shadow: -2px 0 cyan;
+
+/* Lag 1 – små stjerner, tettere */
+.starry-bg::before {
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+    radial-gradient(1px 1px at 60px 80px, #fff, transparent),
+    radial-gradient(1px 1px at 120px 200px, #fff, transparent),
+    radial-gradient(1px 1px at 240px 160px, #fff, transparent),
+    radial-gradient(1px 1px at 360px 320px, #fff, transparent),
+    radial-gradient(1px 1px at 480px 40px, #fff, transparent),
+    radial-gradient(1px 1px at 540px 260px, #fff, transparent),
+    radial-gradient(1px 1px at 700px 180px, #fff, transparent),
+    radial-gradient(1px 1px at 820px 380px, #fff, transparent),
+    radial-gradient(1px 1px at 980px 120px, #fff, transparent),
+    radial-gradient(1px 1px at 1100px 260px, #fff, transparent),
+    radial-gradient(1px 1px at 1300px 90px, #fff, transparent);
+  background-size: 400px 400px;
+  opacity: 0.7;
 }
+
+/* Lag 2 – litt større stjerner, roligere */
+.starry-bg::after {
+  background-image:
+    radial-gradient(1.5px 1.5px at 100px 140px, #fff, transparent),
+    radial-gradient(2px 2px at 300px 260px, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 520px 340px, #fff, transparent),
+    radial-gradient(2px 2px at 760px 120px, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 960px 300px, #fff, transparent),
+    radial-gradient(2px 2px at 1250px 420px, #fff, transparent);
+  background-size: 600px 600px;
+  opacity: 0.5;
+  animation-duration: 220s;
+}
+
+/* Lag 3 – “twinkle” som ekte node */
+.starry-twinkle {
+  position: absolute;
+  top: -25%;
+  left: -25%;
+  width: 150%;
+  height: 150%;
+  background-repeat: repeat;
+  background-image:
+    radial-gradient(2.2px 2.2px at 180px 160px, #fff, transparent),
+    radial-gradient(2px 2px at 420px 300px, #fff, transparent),
+    radial-gradient(2.2px 2.2px at 680px 240px, #fff, transparent),
+    radial-gradient(2px 2px at 860px 420px, #fff, transparent),
+    radial-gradient(2.2px 2.2px at 1180px 260px, #fff, transparent);
+  background-size: 700px 700px;
+  opacity: 0.45;
+  animation:
+    moveStars 260s linear infinite,
+    twinkle 3.5s ease-in-out infinite alternate;
+}
+
+/* Animations */
+@keyframes moveStars {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-25%, -25%, 0); }
+}
+
+@keyframes twinkle {
+  0%   { opacity: 0.2; }
+  50%  { opacity: 0.8; }
+  100% { opacity: 0.3; }
+}
+
+/* Prefer-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .starry-bg::before,
+  .starry-bg::after,
+  .starry-twinkle {
+    animation: none;
+  }
+}
+
 
