@@ -1,13 +1,50 @@
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Card from "../components/Card"
 import { projects } from "../data/projects"
 import Typewriter from "../components/Typewriter"
 
 export default function Home() {
-  function scrollToProjects() {
-    document.getElementById("projects-anchor")
-      ?.scrollIntoView({ behavior: "smooth", block: "start" })
+  // Fade-in states
+  const [aboutVisible, setAboutVisible] = useState(false)
+  const [projectsVisible, setProjectsVisible] = useState(false)
+
+  // Scroll helpers with offsets (tweak numbers if you want more/less gap)
+  function scrollToAbout() {
+    const el = document.getElementById("about-anchor")
+    if (el) {
+      const offset = el.getBoundingClientRect().top + window.scrollY - 100
+      window.scrollTo({ top: offset, behavior: "smooth" })
+    }
   }
+
+  function scrollToProjects() {
+    const el = document.getElementById("projects-anchor")
+    if (el) {
+      const offset = el.getBoundingClientRect().top + window.scrollY - 220 // større negativ verdi = mer luft
+      window.scrollTo({ top: offset, behavior: "smooth" })
+    }
+  }
+
+  // Observe anchors to trigger fade-in
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.target.id === "about-anchor" && entry.isIntersecting) setAboutVisible(true)
+          if (entry.target.id === "projects-anchor" && entry.isIntersecting) setProjectsVisible(true)
+        }
+      },
+      { threshold: 0.3 }
+    )
+
+    const aboutEl = document.getElementById("about-anchor")
+    const projectsEl = document.getElementById("projects-anchor")
+    if (aboutEl) observer.observe(aboutEl)
+    if (projectsEl) observer.observe(projectsEl)
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <>
@@ -26,8 +63,8 @@ export default function Home() {
           </p>
 
           <button
-            onClick={scrollToProjects}
-            aria-label="Scroll to projects"
+            onClick={scrollToAbout}
+            aria-label="Scroll to next section"
             className="mt-14 transition transform hover:scale-110"
           >
             <svg
@@ -43,25 +80,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PROJECTS */}
-      <section className="relative z-10 container pt-16 pb-32 mb-16">
-        <header id="projects-anchor" className="mb-10 text-center">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-orange-600">
-            Projects made through Noroff School of Technology &amp; Digital Media
-          </h2>
-          <div className="mx-auto mt-3 h-px w-24 rounded-full bg-gradient-to-r from-orange-500/60 via-fuchsia-500/60 to-cyan-400/60" />
-        </header>
-
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p) => (
-            <Card key={p.slug} item={p} />
-          ))}
-        </div>
-      </section>
-
-      {/* ABOUT / MORE ABOUT ME (teaser) */}
-      <section id="about" className="relative z-10 container py-24">
-        <header className="mt-20 mb-8 text-center">
+      {/* ABOUT / MORE ABOUT ME */}
+      <section
+        id="about"
+        className={`relative z-10 container py-24 transition-all duration-1000 ${
+          aboutVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+        }`}
+      >
+        <header id="about-anchor" className="mt-20 mb-8 text-center">
           <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-orange-600">
             A little about me
           </h3>
@@ -70,16 +96,9 @@ export default function Home() {
             I’m a Frontend Development student at Noroff with a background in Film &amp; TV production.
             I care about clean, accessible interfaces and thoughtful details.
           </p>
-
-          {/* CTA to full About page */}
-          <div className="mt-6">
-            <Link to="/about" className="btn btn-primary">
-              Read more about me →
-            </Link>
-          </div>
         </header>
 
-        <div className="grid gap-6 md:grid-cols-2 items-stretch">
+        <div className="grid gap-6 md:grid-cols-2 items-stretch mb-12">
           {/* Education */}
           <div className="rounded-2xl p-[1px] bg-gradient-to-r from-orange-500/40 via-fuchsia-500/30 to-cyan-400/40 h-full">
             <div className="rounded-2xl border border-white/10 bg-black/60 backdrop-blur-sm p-6 h-full">
@@ -119,7 +138,7 @@ export default function Home() {
               <div className="mt-5 flex flex-wrap gap-2">
                 {[
                   "HTML", "CSS", "JavaScript", "TypeScript", "React", "Tailwind",
-                  "Accessibility", "UI/UX", "REST APIs", "Vite", "Vitest",
+                  "Accessibility", "UI/UX", "REST APIs", "Vite", "Vitest", "Gaming", "Film", "Photography", "Music", "Culinary experiences", "Culture"
                 ].map((tag) => (
                   <span
                     key={tag}
@@ -131,6 +150,48 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* CTA + down arrow to projects */}
+        <div className="flex flex-col items-center mt-8 mb-20">
+          <Link to="/about" className="inline-block btn btn-primary mb-8">
+            Read more about me →
+          </Link>
+
+          <button
+            onClick={scrollToProjects}
+            aria-label="Scroll to projects"
+            className="transition transform hover:scale-110"
+          >
+            <svg
+              className="w-8 h-8 animate-bounce text-white hover:text-orange-600 transition-colors"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      {/* PROJECTS */}
+      <section
+        className={`relative z-10 container pt-16 pb-32 transition-all duration-1000 ${
+          projectsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+        }`}
+      >
+        <header id="projects-anchor" className="mb-10 text-center">
+          <h3 className="text-2xl md:text-1xl font-semibold tracking-tight text-orange-600">
+            Projects made through Noroff School of Technology &amp; Digital Media
+          </h3>
+        </header>
+
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((p) => (
+            <Card key={p.slug} item={p} />
+          ))}
         </div>
       </section>
     </>

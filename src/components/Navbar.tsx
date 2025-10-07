@@ -11,7 +11,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="mt-5 z-50 bg-black text-white">
+    <header className="mt-5 z-50 text-white font-bold">
       <div className="container flex items-center justify-end py-3">
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
