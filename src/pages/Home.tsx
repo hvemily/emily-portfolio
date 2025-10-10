@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Card from "../components/Card"
 import { projects } from "../data/projects"
-import Typewriter from "../components/Typewriter"
 
 export default function Home() {
   // Fade-in states
@@ -13,7 +12,7 @@ export default function Home() {
   function scrollToAbout() {
     const el = document.getElementById("about-anchor")
     if (el) {
-      const offset = el.getBoundingClientRect().top + window.scrollY - 100
+      const offset = el.getBoundingClientRect().top + window.scrollY - 60
       window.scrollTo({ top: offset, behavior: "smooth" })
     }
   }
@@ -55,9 +54,18 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 container h-full flex flex-col items-center justify-center text-center">
-          <h1 className="mb-6">
-            <Typewriter text={"<EMILY BRYNESTAD/>"} speed={70} />
-          </h1>
+          <div className="relative overflow-visible">
+            <h1
+              className="mb-6 text-2xl md:text-4xl font-normal tracking-tight
+                        leading-[1.12] pb-1 overflow-visible
+                        text-transparent bg-clip-text 
+                        bg-gradient-to-r from-sky-300 via-violet-400 to-fuchsia-500
+                        drop-shadow-[0_0_24px_rgba(168,85,247,0.55)]"
+            >
+              Emily Brynestad
+            </h1>
+          </div>
+
           <p className="text-lg text-gray-300">
             Frontend student @ Noroff School of Technology and Digital Media.
           </p>
@@ -65,18 +73,32 @@ export default function Home() {
           <button
             onClick={scrollToAbout}
             aria-label="Scroll to next section"
-            className="mt-14 transition transform hover:scale-110"
+            className="mt-14 transition-transform duration-500 ease-in-out hover:scale-110 group"
           >
             <svg
-              className="w-8 h-8 animate-bounce text-white hover:text-orange-600 transition-colors"
+              className="w-8 h-8 animate-bounce transition-all duration-700 ease-in-out 
+                        text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.3)] 
+                        group-hover:drop-shadow-[0_0_14px_rgba(168,85,247,0.8)]"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="currentColor"
               strokeWidth="2"
             >
-              <path d="M6 9l6 6 6-6" />
+              <defs>
+                <linearGradient id="hoverGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#6EE7FF" />
+                  <stop offset="50%" stopColor="#A855F7" />
+                  <stop offset="100%" stopColor="#EC4899" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M6 9l6 6 6-6"
+                stroke="currentColor"
+                className="transition-all duration-700 ease-in-out group-hover:[stroke:url(#hoverGradient)]"
+              />
             </svg>
           </button>
+
+
         </div>
       </section>
 
@@ -88,13 +110,21 @@ export default function Home() {
         }`}
       >
         <header id="about-anchor" className="mt-20 mb-8 text-center">
-          <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-orange-600">
+          <h3 className="text-2xl md:text-3xl font-normal tracking-tight text-violet-400">
             A little about me
           </h3>
           <div className="mx-auto mt-3 h-px w-16 rounded-full bg-gradient-to-r from-orange-500/60 via-fuchsia-500/60 to-cyan-400/60" />
           <p className="mt-4 text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            I’m a Frontend Development student at Noroff with a background in Film &amp; TV production.
-            I care about clean, accessible interfaces and thoughtful details.
+            I’m a Frontend Development student at{" "}
+            <a
+              href="https://www.noroff.no"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-violet-400 hover:text-violet-300 transition-colors duration-300"
+            >
+              Noroff
+            </a>{" "}
+            with a background in Film &amp; TV production. I care about clean, accessible interfaces and thoughtful details.
           </p>
         </header>
 
@@ -154,9 +184,19 @@ export default function Home() {
 
         {/* CTA + down arrow to projects */}
         <div className="flex flex-col items-center mt-8 mb-20">
-          <Link to="/about" className="inline-block btn btn-primary mb-8">
+          <Link
+            to="/about"
+            className="inline-block mb-8 font-medium text-violet-300 
+                      transition-all duration-500 ease-in-out 
+                      hover:text-violet-100 hover:drop-shadow-[0_0_6px_rgba(139,92,246,0.7)] 
+                      hover:scale-[1.05]"
+          >
             Read more about me →
           </Link>
+          <p className="mb-6">..or look at my projects down here!</p>
+
+
+
 
           <button
             onClick={scrollToProjects}

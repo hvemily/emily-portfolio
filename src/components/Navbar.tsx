@@ -17,19 +17,28 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center gap-8">
           <NavLink
             to="/"
-            className="uppercase italic text-orange-600 transition transform hover:scale-110 hover:text-white"
+            className="uppercase italic font-normal text-violet-400 
+                      transition-all duration-500 ease-in-out 
+                      hover:scale-110 hover:text-white 
+                      hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.7)]"
           >
             Home
           </NavLink>
           <NavLink
             to="/about"
-            className="uppercase italic text-orange-600 transition transform hover:scale-110 hover:text-white"
+            className="uppercase italic font-normal text-violet-400 
+                      transition-all duration-500 ease-in-out 
+                      hover:scale-110 hover:text-white 
+                      hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.7)]"
           >
             About
           </NavLink>
           <NavLink
             to="/contact"
-            className="uppercase italic text-orange-600 transition transform hover:scale-110 hover:text-white"
+            className="uppercase italic font-normal text-violet-400 
+                      transition-all duration-500 ease-in-out 
+                      hover:scale-110 hover:text-white 
+                      hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.7)]"
           >
             Contact
           </NavLink>
@@ -37,7 +46,7 @@ export default function Navbar() {
 
         {/* Mobile button */}
         <button
-          className="md:hidden ml-auto text-white hover:text-orange-600"
+          className="md:hidden ml-auto text-white hover:text-violet-400"
           aria-label="Menu"
           onClick={() => setOpen(!open)}
         >
