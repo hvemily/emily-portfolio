@@ -12,7 +12,7 @@ export default function Home() {
   function scrollToAbout() {
     const el = document.getElementById("about-anchor")
     if (el) {
-      const offset = el.getBoundingClientRect().top + window.scrollY - 60
+      const offset = el.getBoundingClientRect().top + window.scrollY - 55
       window.scrollTo({ top: offset, behavior: "smooth" })
     }
   }
@@ -20,7 +20,7 @@ export default function Home() {
   function scrollToProjects() {
     const el = document.getElementById("projects-anchor")
     if (el) {
-      const offset = el.getBoundingClientRect().top + window.scrollY - 220 // større negativ verdi = mer luft
+      const offset = el.getBoundingClientRect().top + window.scrollY - 60 // større negativ verdi = mer luft
       window.scrollTo({ top: offset, behavior: "smooth" })
     }
   }
@@ -223,7 +223,7 @@ export default function Home() {
         }`}
       >
         <header id="projects-anchor" className="mb-10 text-center">
-          <h3 className="text-2xl md:text-1xl font-semibold tracking-tight text-orange-600">
+          <h3 className="text-2xl md:text-1xl font-normal tracking-tight text-violet-400">
             Projects made through Noroff School of Technology &amp; Digital Media
           </h3>
         </header>
