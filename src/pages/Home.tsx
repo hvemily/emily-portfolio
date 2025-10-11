@@ -1,27 +1,27 @@
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import Card from "../components/Card"
-import { projects } from "../data/projects"
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Card from "../components/Card";
+import { projects } from "../data/projects";
 
 export default function Home() {
   // Fade-in states
-  const [aboutVisible, setAboutVisible] = useState(false)
-  const [projectsVisible, setProjectsVisible] = useState(false)
+  const [aboutVisible, setAboutVisible] = useState(false);
+  const [projectsVisible, setProjectsVisible] = useState(false);
 
   // Scroll helpers with offsets (tweak numbers if you want more/less gap)
   function scrollToAbout() {
-    const el = document.getElementById("about-anchor")
+    const el = document.getElementById("about-anchor");
     if (el) {
-      const offset = el.getBoundingClientRect().top + window.scrollY - 55
-      window.scrollTo({ top: offset, behavior: "smooth" })
+      const offset = el.getBoundingClientRect().top + window.scrollY - 55;
+      window.scrollTo({ top: offset, behavior: "smooth" });
     }
   }
 
   function scrollToProjects() {
-    const el = document.getElementById("projects-anchor")
+    const el = document.getElementById("projects-anchor");
     if (el) {
-      const offset = el.getBoundingClientRect().top + window.scrollY - 60 // større negativ verdi = mer luft
-      window.scrollTo({ top: offset, behavior: "smooth" })
+      const offset = el.getBoundingClientRect().top + window.scrollY - 60; // større negativ verdi = mer luft
+      window.scrollTo({ top: offset, behavior: "smooth" });
     }
   }
 
@@ -30,20 +30,22 @@ export default function Home() {
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.target.id === "about-anchor" && entry.isIntersecting) setAboutVisible(true)
-          if (entry.target.id === "projects-anchor" && entry.isIntersecting) setProjectsVisible(true)
+          if (entry.target.id === "about-anchor" && entry.isIntersecting)
+            setAboutVisible(true);
+          if (entry.target.id === "projects-anchor" && entry.isIntersecting)
+            setProjectsVisible(true);
         }
       },
       { threshold: 0.3 }
-    )
+    );
 
-    const aboutEl = document.getElementById("about-anchor")
-    const projectsEl = document.getElementById("projects-anchor")
-    if (aboutEl) observer.observe(aboutEl)
-    if (projectsEl) observer.observe(projectsEl)
+    const aboutEl = document.getElementById("about-anchor");
+    const projectsEl = document.getElementById("projects-anchor");
+    if (aboutEl) observer.observe(aboutEl);
+    if (projectsEl) observer.observe(projectsEl);
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -56,7 +58,7 @@ export default function Home() {
         <div className="relative z-10 container h-full flex flex-col items-center justify-center text-center">
           <div className="relative overflow-visible">
             <h1
-              className="mb-6 text-2xl md:text-4xl font-normal tracking-tight
+              className="mb-6 text-2xl md:text-4xl font-bold tracking-tight
                         leading-[1.12] pb-1 overflow-visible
                         text-transparent bg-clip-text 
                         bg-gradient-to-r from-sky-300 via-violet-400 to-fuchsia-500
@@ -97,8 +99,6 @@ export default function Home() {
               />
             </svg>
           </button>
-
-
         </div>
       </section>
 
@@ -124,51 +124,69 @@ export default function Home() {
             >
               Noroff
             </a>{" "}
-            with a background in Film &amp; TV production. I care about clean, accessible interfaces and thoughtful details.
+            with a background in Film &amp; TV production. I care about clean,
+            accessible interfaces and thoughtful details.
           </p>
         </header>
 
         <div className="grid gap-6 md:grid-cols-2 items-stretch mb-12">
           {/* Education */}
-          <div className="rounded-2xl p-[1px] bg-gradient-to-r from-orange-500/40 via-fuchsia-500/30 to-cyan-400/40 h-full">
-            <div className="rounded-2xl border border-white/10 bg-black/60 backdrop-blur-sm p-6 h-full">
+          <div className="rounded-2xl p-[1px] bg-gradient-to-r from-sky-400/40 via-violet-500/30 to-fuchsia-500/40 h-full">
+            <div className="rounded-2xl border border-white/10 bg-transparent backdrop-blur-0 p-6 h-full">
               <h4 className="text-lg font-semibold text-white">Education</h4>
               <ul className="mt-5 space-y-5">
                 <li className="relative pl-6">
                   <span className="absolute left-0 top-2 h-2 w-2 rounded-full bg-white/90 shadow-[0_0_10px_rgba(255,255,255,0.7)]" />
                   <p className="text-gray-200">
-                    2023–2025 Frontend Development (2-year), <span className="text-gray-100 font-medium">Noroff</span>
+                    2023–2025 Frontend Development (2-year),{" "}
+                    <span className="text-gray-100 font-medium">Noroff</span>
                   </p>
                   <p className="text-xs text-gray-400 mt-1">
-                    Focus: HTML, CSS, JavaScript, TypeScript, React, UI/UX, accessibility.
+                    Focus: HTML, CSS, JavaScript, TypeScript, React, UI/UX,
+                    accessibility.
                   </p>
                 </li>
                 <li className="relative pl-6">
                   <span className="absolute left-0 top-2 h-2 w-2 rounded-full bg-white/70 shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
                   <p className="text-gray-200">
                     2019–2022 B.A. Film &amp; TV Production,{" "}
-                    <span className="text-gray-100 font-medium">Westerdals (Høyskolen Kristiania)</span>
+                    <span className="text-gray-100 font-medium">
+                      Westerdals (Høyskolen Kristiania)
+                    </span>
                   </p>
                   <p className="text-xs text-gray-400 mt-1">
-                    Storytelling, production workflows, creative direction, editing, photography.
+                    Storytelling, production workflows, creative direction,
+                    editing, photography.
                   </p>
                 </li>
               </ul>
             </div>
           </div>
 
-          {/* Focus / skills */}
-          <div className="rounded-2xl p-[1px] bg-gradient-to-r from-orange-500/40 via-fuchsia-500/30 to-cyan-400/40 h-full">
-            <div className="rounded-2xl border border-white/10 bg-black/60 backdrop-blur-sm p-6 h-full">
-              <h4 className="text-lg font-semibold text-white">What I’m into</h4>
+          {/* What I’m into */}
+          <div className="rounded-2xl p-[1px] bg-gradient-to-r from-sky-400/40 via-violet-500/30 to-fuchsia-500/40 h-full">
+            <div className="rounded-2xl border border-white/10 bg-transparent backdrop-blur-0 p-6 h-full">
+              <h4 className="text-lg font-semibold text-white">
+                What I’m into
+              </h4>
               <p className="mt-4 text-gray-300">
-                Building smooth, accessible web experiences. Also into tech, gaming, film &amp; music.
+                Building smooth, accessible web experiences. Also into tech,
+                gaming, film &amp; music.
               </p>
 
               <div className="mt-5 flex flex-wrap gap-2">
                 {[
-                  "HTML", "CSS", "JavaScript", "TypeScript", "React", "Tailwind",
-                  "Accessibility", "UI/UX", "REST APIs", "Vite", "Vitest", "Gaming", "Film", "Photography", "Music", "Culinary experiences", "Culture"
+                  "HTML",
+                  "CSS",
+                  "JavaScript",
+                  "TypeScript",
+                  "React",
+                  "Tailwind",
+                  "Accessibility",
+                  "UI/UX",
+                  "REST APIs",
+                  "Vite",
+                  "Vitest",
                 ].map((tag) => (
                   <span
                     key={tag}
@@ -195,9 +213,6 @@ export default function Home() {
           </Link>
           <p className="mb-6">..or look at my projects down here!</p>
 
-
-
-
           <button
             onClick={scrollToProjects}
             aria-label="Scroll to projects"
@@ -219,12 +234,15 @@ export default function Home() {
       {/* PROJECTS */}
       <section
         className={`relative z-10 container pt-16 pb-32 transition-all duration-1000 ${
-          projectsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          projectsVisible
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-6"
         }`}
       >
         <header id="projects-anchor" className="mb-10 text-center">
           <h3 className="text-2xl md:text-1xl font-normal tracking-tight text-violet-400">
-            Projects made through Noroff School of Technology &amp; Digital Media
+            Projects made through Noroff School of Technology &amp; Digital
+            Media
           </h3>
         </header>
 
@@ -235,5 +253,5 @@ export default function Home() {
         </div>
       </section>
     </>
-  )
+  );
 }
